@@ -26,10 +26,10 @@ func _parse_expr(fact):
 	
 	for char in to_remove:
 		fact = fact.replace(char, "")
-#	if predicate == "": 
-#		terms = terms.split(splitting)
-#	else: 
-	terms = fact.split(",")
+	if predicate == "": 
+		terms = terms.split(splitting)
+	else: 
+		terms = fact.split(",")
 	print(terms)
 	string = f
 	index = 0
