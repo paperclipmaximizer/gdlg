@@ -1,3 +1,4 @@
+@tool
 # Class: database
 # Author: Liam Avella-Pisera liam.avellapisera@gmail.com
 class_name Database extends Object
@@ -12,10 +13,10 @@ var rules
 
 func _init(_rules: Array):
 	rules = _rules
-	
+
+
 func query(goal) -> Array:
 	var results = []
-	
 	for rule in rules:
 		var matching_head_var_bindings = rule.head.match_variable_bindings(goal)
 		if matching_head_var_bindings != null:
@@ -28,7 +29,10 @@ func query(goal) -> Array:
 					var result = matched_head_item.substitute_variable_bindings(matching_tail_var_bindings)
 					results.append(result)
 					return results
-
+		else:
+			return []
+	return results
+	
 static func merge_bindings(first_bindings_map: Dictionary, second_bindings_map: Dictionary):
 	if first_bindings_map == null or second_bindings_map == null:
 		return null
@@ -48,9 +52,8 @@ static func merge_bindings(first_bindings_map: Dictionary, second_bindings_map: 
 				return null
 		else:
 			merged_bindings[variable] = func (): second_bindings_map[variable]
-			
 	return merged_bindings
-		
+
 func to_string() -> String:
 	var rule_string = ""
 	for rule in rules:
